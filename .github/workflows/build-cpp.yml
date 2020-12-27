@@ -6,15 +6,21 @@ jobs:
   build:
     name: Build ./cpp
     runs-on: ubuntu-latest
+    
     steps:
+    # checkout the latest source
     - name: Checkout
       uses: actions/checkout@v2
+
+    # use an action that builds a Debian container and runs `make` in it
     - name: Make ./cpp
       uses: ./.github/workflows/debian-build
 
+    # run the app to make sure it was built
     - name: test ./cpp
       run: ./cpp
 
+    # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
       uses: actions/upload-artifact@v2.2.1
       with:
@@ -26,6 +32,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+
+    # create a draft GitHub release
     - name: Create a draft release
       id: create_release
       uses: actions/create-release@v1.1.4
@@ -36,12 +44,14 @@ jobs:
         release_name: v1.0.0
         draft: true
 
+    # download the artifact that we built earlier in this workflow
     - name: Download artifact hello-world
       uses: actions/download-artifact@v2.0.7
       with:
         name: hello-world
         path: hello-world/
 
+    # upload the downloaded artifact as a draft release asset
     - name: Upload a Release Asset
       uses: actions/upload-release-asset@v1.0.2
       env:
