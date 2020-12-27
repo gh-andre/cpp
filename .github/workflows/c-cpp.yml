@@ -35,3 +35,4 @@ jobs:
         name: hello-world
         path: ./cpp
         error: Cannot find this file
+        token: ${{ secrets.GITHUB_TOKEN }}
