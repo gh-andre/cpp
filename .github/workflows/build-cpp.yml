@@ -1,8 +1,6 @@
 name: Build ./cpp
 
-on:
-  push:
-    branches: [ main ]
+on: workflow_dispatch
 
 jobs:
   build:
@@ -31,3 +29,22 @@ jobs:
       with:
         name: hello-world
         path: ./cpp
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download ./cpp
+      uses: actions/download-artifact@v2.0.7
+      with:
+        name: hello-world
+        path: hello-world/
+
+    - name: Upload a Release Asset
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./hello-world/cpp
+        asset_name: hello-world
+        asset_content_type: application/octet-stream
