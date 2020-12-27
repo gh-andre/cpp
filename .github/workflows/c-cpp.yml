@@ -2,9 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ ]
   pull_request:
-    branches: [ main ]
+    branches: [ ]
 
 jobs:
   build:
@@ -43,9 +43,6 @@ jobs:
       with:
         name: hello-world
         path: hello-world/
-
-    - name: List current directory
-      run: ls -alR
 
     - name: Upload a Release Asset
       uses: actions/upload-release-asset@v1.0.2
