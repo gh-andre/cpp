@@ -3,4 +3,7 @@ description: Runs a build in a Debian container
 runs:
   using: docker
   image: debian:latest
+  entrypoint: ls
+  args:
+    - '-lR'
   
