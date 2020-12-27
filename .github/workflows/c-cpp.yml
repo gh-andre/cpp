@@ -23,6 +23,7 @@ jobs:
         echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
 
     - name: Create a Release
+      id: create_release
       uses: actions/create-release@v1.1.4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,3 +38,18 @@ jobs:
         name: hello-world
         path: ./cpp
 
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2.0.7
+      with:
+        name: hello-world
+
+    - name: Upload a Release Asset
+      uses: actions/upload-release-asset@v1.0.2
+      with:
+        # The URL for uploading assets to the release
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        # The path to the asset you want to upload
+        asset_path: ./hello-world
+        # The name of the asset you want to upload
+        asset_name: hello-world.zip
+        asset_content_type: application/zip
