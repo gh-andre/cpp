@@ -4,6 +4,7 @@ on: workflow_dispatch
 
 jobs:
   build:
+    name: Build ./cpp
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -31,6 +32,8 @@ jobs:
         path: ./cpp
 
   release:
+    name: Create a draft release for ./cpp
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Download ./cpp
