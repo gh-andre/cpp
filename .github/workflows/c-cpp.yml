@@ -11,7 +11,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: make
-      uses: ./debian-build/
+      uses: ./.github/workflows/debian-build
     - name: test
       run: ./cpp
     - name: echo
