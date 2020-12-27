@@ -8,10 +8,14 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: make
       run: make
+    - name: test
+      run: |
+        ./cpp
+        echo GITHUB_WORKFLOW: ${{ GITHUB_WORKFLOW }}
+        echo GITHUB_RUN_ID: ${{ GITHUB_RUN_ID }}
+        echo GITHUB_RUN_NUMBER: ${{ GITHUB_RUN_NUMBER }} 
