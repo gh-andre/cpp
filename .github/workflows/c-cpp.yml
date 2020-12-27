@@ -36,5 +36,4 @@ jobs:
       with:
         name: hello-world
         path: ./cpp
-        error: Cannot find this file
 
