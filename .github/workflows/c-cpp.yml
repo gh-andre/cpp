@@ -42,6 +42,7 @@ jobs:
       uses: actions/download-artifact@v2.0.7
       with:
         name: hello-world
+        path: hello-world/
 
     - name: List current directory
       run: ls -alR
@@ -49,10 +50,7 @@ jobs:
     - name: Upload a Release Asset
       uses: actions/upload-release-asset@v1.0.2
       with:
-        # The URL for uploading assets to the release
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        # The path to the asset you want to upload
-        asset_path: ./hello-world
-        # The name of the asset you want to upload
+        asset_path: ./hello-world/cpp
         asset_name: hello-world
         asset_content_type: application/octet-stream
