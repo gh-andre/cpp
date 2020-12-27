@@ -14,10 +14,24 @@ jobs:
     - name: make
       run: make
     - name: test
+      run: ./cpp
+    - name: echo
       run: |
-        ./cpp
         pwd
-        ls -al ../
         echo "GITHUB_WORKFLOW: $GITHUB_WORKFLOW"
         echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
         echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
+    - name: Create a Release
+      uses: actions/create-release@v1.1.4
+      with:
+        # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
+        tag_name: v1.0.0
+        # The name of the release. For example, `Release v1.0.1`
+        release_name: v1.0.0
+        draft: true
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: hello-world
+        path: ./cpp
+        error: Cannot find this file
