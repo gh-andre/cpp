@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Build ./cpp
 
 on:
   push:
@@ -10,18 +10,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: make
+    - name: Make ./cpp
       uses: ./.github/workflows/debian-build
-    - name: test
-      run: ./cpp
-    - name: echo
-      run: |
-        pwd
-        echo "GITHUB_WORKFLOW: $GITHUB_WORKFLOW"
-        echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
-        echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
 
-    - name: Create a Release
+    - name: test ./cpp
+      run: ./cpp
+
+    - name: Create a release
       id: create_release
       uses: actions/create-release@v1.1.4
       env:
@@ -31,24 +26,8 @@ jobs:
         release_name: v1.0.0
         draft: true
 
-    - name: Upload a Build Artifact
+    - name: Upload ./cpp artifact
       uses: actions/upload-artifact@v2.2.1
       with:
         name: hello-world
         path: ./cpp
-
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v2.0.7
-      with:
-        name: hello-world
-        path: hello-world/
-
-    - name: Upload a Release Asset
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./hello-world/cpp
-        asset_name: hello-world
-        asset_content_type: application/octet-stream
