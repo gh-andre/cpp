@@ -15,6 +15,8 @@ jobs:
     # use an action that builds a Debian container and runs `make` in it
     - name: Make ./cpp
       uses: ./.github/workflows/debian-build
+    - name: Make ./cpp (2)
+      uses: ./.github/workflows/debian-build
 
     # run the app to make sure it was built
     - name: test ./cpp
