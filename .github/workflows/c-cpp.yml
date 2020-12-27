@@ -43,6 +43,9 @@ jobs:
       with:
         name: hello-world
 
+    - name: List current directory
+      run: ls -alR
+
     - name: Upload a Release Asset
       uses: actions/upload-release-asset@v1.0.2
       with:
@@ -51,5 +54,5 @@ jobs:
         # The path to the asset you want to upload
         asset_path: ./hello-world
         # The name of the asset you want to upload
-        asset_name: hello-world.zip
-        asset_content_type: application/zip
+        asset_name: hello-world
+        asset_content_type: application/octet-stream
