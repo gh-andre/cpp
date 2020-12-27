@@ -16,6 +16,8 @@ jobs:
     - name: test
       run: |
         ./cpp
+        pwd
+        ls -al ../
         echo "GITHUB_WORKFLOW: $GITHUB_WORKFLOW"
         echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
         echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
