@@ -1,5 +1,6 @@
 name: Build and release ./cpp
 
+# manual and REST API runs only
 on: workflow_dispatch
 
 jobs:
@@ -12,7 +13,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # use an action that builds a Debian container and runs `make` in it
+    # use a local action that builds a Debian container and runs `make` in it
     - name: Make ./cpp
       uses: ./.github/workflows/debian-build
 
@@ -31,8 +32,8 @@ jobs:
     name: Create a draft release for ./cpp
     needs: build
     runs-on: ubuntu-latest
-    steps:
 
+    steps:
     # create a draft GitHub release
     - name: Create a draft release
       id: create_release
@@ -44,19 +45,20 @@ jobs:
         release_name: v1.0.0
         draft: true
 
-    # download the artifact that we built earlier in this workflow
+    # download the artifact that was built in the `build` job in this workflow
     - name: Download artifact hello-world
       uses: actions/download-artifact@v2.0.7
       with:
         name: hello-world
         path: hello-world/
 
-    # upload the downloaded artifact as a draft release asset
+    # upload the build artifact as a draft release asset
     - name: Upload a Release Asset
       uses: actions/upload-release-asset@v1.0.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
+        # use the upload URL from the step that created a release
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: ./hello-world/cpp
         asset_name: hello-world
