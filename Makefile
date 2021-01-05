@@ -1,3 +1,3 @@
-cpp: test.o
-	g++ -std=c++17 -o cpp test.cpp
+cpp: test.cpp
+	g++ -std=c++17 -o $@ #?
 	
