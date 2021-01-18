@@ -1,3 +1,6 @@
+#
+# Workflow name won't accept context expressions, such as ${{ github.run_number }}.
+#
 name: 1.0.2
 
 # manual and REST API runs only
