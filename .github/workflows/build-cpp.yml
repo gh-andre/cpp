@@ -1,7 +1,17 @@
 #
 # Workflow name won't accept context expressions, such as ${{ github.run_number }}.
 #
-name: 1.1.0
+# Moreover, Actions confuse workflow names in different branches and while the name
+# will be evaluated properly during the run (e.g. if it's named 1.0.2 in a release
+# branch and 2.0.0 in master), only the one in master will show in Actions and will
+# have the name in that workflow file. This makes it impossible to distinguish
+# multiple runs without clicking on them, which shows proper run name.
+#
+name: build cpp
+
+env:
+  VERSION: 1.1.0
+  BUILD_NUMBER: ${{ github.run_number }}
 
 # manual and REST API runs only
 on: workflow_dispatch
@@ -28,7 +38,7 @@ jobs:
     - name: Upload ./cpp artifact
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: hello-world-${{ github.workflow }}+${{ github.run_number }}
+        name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
         path: ./cpp
 
   release:
@@ -44,15 +54,15 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.workflow }}
-        release_name: v${{ github.workflow }}
+        tag_name: ${{ env.VERSION }}
+        release_name: v${{ env.VERSION }}
         draft: true
 
     # download the artifact that was built in the `build` job in this workflow
     - name: Download artifact hello-world
       uses: actions/download-artifact@v2.0.7
       with:
-        name: hello-world-${{ github.workflow }}+${{ github.run_number }}
+        name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
         path: hello-world/
 
     # upload the build artifact as a draft release asset
@@ -64,5 +74,5 @@ jobs:
         # use the upload URL from the step that created a release
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: ./hello-world/cpp
-        asset_name: hello-world-${{ github.workflow }}+${{ github.run_number }}
+        asset_name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
         asset_content_type: application/octet-stream
