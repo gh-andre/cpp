@@ -10,6 +10,14 @@
 name: build cpp
 
 env:
+  #
+  # These version variables are half-measures for tracking build numbers and
+  # won't work as well as Azure pipeline names and counters. If this workflow
+  # file is reused between branches, build numbers will not be sequential.
+  # The only way to track proper build numbers in GitHub is to have different
+  # workflow files, which is really messy because those in branches are not
+  # interpreted well when showing run names (see comment above `name`).
+  #
   VERSION: 1.1.0
   BUILD_NUMBER: ${{ github.run_number }}
 
