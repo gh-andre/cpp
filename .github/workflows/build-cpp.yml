@@ -5,7 +5,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    name: Build ./cpp (${{ github.run_number }})
+    name: Build ./cpp
     runs-on: ubuntu-latest
     
     steps:
@@ -41,8 +41,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v1.0.0
-        release_name: v1.0.0
+        tag_name: ${{ github.workflow }}
+        release_name: v${{ github.workflow }}
         draft: true
 
     # download the artifact that was built in the `build` job in this workflow
