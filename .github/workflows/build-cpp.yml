@@ -1,4 +1,4 @@
-name: Build and release ./cpp
+name: 1.0.2+$GITHUB_RUN_NUMBER
 
 # manual and REST API runs only
 on: workflow_dispatch
@@ -19,7 +19,9 @@ jobs:
 
     # run the app to make sure it was built
     - name: test ./cpp
-      run: ./cpp
+      run: |
+        echo $GITHUB_WORKFLOW
+        ./cpp
 
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
