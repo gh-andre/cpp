@@ -1,11 +1,11 @@
-name: 1.0.2-${{ env.GITHUB_RUN_NUMBER }}
+name: 1.0.2
 
 # manual and REST API runs only
 on: workflow_dispatch
 
 jobs:
   build:
-    name: Build ./cpp
+    name: Build ./cpp (${{ github.run_number }})
     runs-on: ubuntu-latest
     
     steps:
