@@ -1,4 +1,4 @@
-name: 1.0.2+$GITHUB_RUN_NUMBER
+name: 1.0.2+${{ github.run_number }}
 
 # manual and REST API runs only
 on: workflow_dispatch
@@ -20,7 +20,7 @@ jobs:
     # run the app to make sure it was built
     - name: test ./cpp
       run: |
-        echo $GITHUB_WORKFLOW
+        echo ${{ github.workflow }}
         ./cpp
 
     # upload the artifact under the `hello-world` name
