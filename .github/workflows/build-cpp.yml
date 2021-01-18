@@ -1,7 +1,4 @@
-env:
-  BUILD: ${{ github.run_number }}
-
-name: 1.0.2+${{ BUILD }}
+name: 1.0.2
 
 # manual and REST API runs only
 on: workflow_dispatch
@@ -22,15 +19,13 @@ jobs:
 
     # run the app to make sure it was built
     - name: test ./cpp
-      run: |
-        echo ${{ github.workflow }}
-        ./cpp
+      run: ./cpp
 
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: hello-world
+        name: hello-world-${{ github.workflow }}+${{ github.run_number }}
         path: ./cpp
 
   release:
@@ -54,7 +49,7 @@ jobs:
     - name: Download artifact hello-world
       uses: actions/download-artifact@v2.0.7
       with:
-        name: hello-world
+        name: hello-world-${{ github.workflow }}+${{ github.run_number }}
         path: hello-world/
 
     # upload the build artifact as a draft release asset
@@ -66,5 +61,5 @@ jobs:
         # use the upload URL from the step that created a release
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: ./hello-world/cpp
-        asset_name: hello-world
+        asset_name: hello-world-${{ github.workflow }}+${{ github.run_number }}
         asset_content_type: application/octet-stream
