@@ -1,8 +1,8 @@
 # see comment in this file in main
-name: build cpp
+name: 1.0.x
 
 env:
-  VERSION: 1.0.4
+  VERSION: 1.0.5
   BUILD_NUMBER: ${{ github.run_number }}
 
 # manual and REST API runs only
