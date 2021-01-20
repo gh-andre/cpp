@@ -1,11 +1,12 @@
 #
 # Workflow name won't accept context expressions, such as ${{ github.run_number }}.
 #
-# Moreover, Actions confuse workflow names in different branches and while the name
-# will be evaluated properly during the run (e.g. if it's named 1.0.2 in a release
-# branch and 2.0.0 in master), only the one in master will show in Actions and will
-# have the name in that workflow file. This makes it impossible to distinguish
-# multiple runs without clicking on them, which shows proper run name.
+# Moreover, Actions UI confuses workflow names in different branches and while the
+# name will be evaluated properly during the run (e.g. if ${{ github.workflow }}
+# is used), the name of the running workflow will replace *all* run names in
+# Actions UI, even for different branches, where workflow name is different. This
+# makes it impossible to distinguish multiple runs without clicking on them, which
+# would show the proper run name.
 #
 name: build cpp
 
@@ -42,7 +43,13 @@ jobs:
     - name: test ./cpp
       run: ./cpp
 
-    # upload the artifact under the `hello-world` name
+    #
+    # Upload the artifact under the `hello-world` name and a version/build
+    # suffix. Technically, we can carry artifacts all the way through the
+    # workflow under a generic name and append version/build suffix to the
+    # package name in the end, but since we don't have a package in this
+    # simple test, use version/build for the artifact name.
+    #
     - name: Upload ./cpp artifact
       uses: actions/upload-artifact@v2.2.1
       with:
