@@ -4,14 +4,13 @@ inputs:
   tar_gz_name:
     description: Name of archive file to create
     required: true
-  dir_path:
-    description: Directory path to archive
+  file_or_dir_path:
+    description: File or directory path to archive
     required: true
 runs:
   using: docker
   image: Dockerfile
   args:
   - '-czvf ${{ inputs.tar_gz_name }}'
-  - '-C ${{ inputs.dir_path }}'
-  - '.'
+  - '${{ inputs.file_or_dir_path }}'
   entrypoint: tar
