@@ -9,6 +9,6 @@ runs:
   using: docker
   image: Dockerfile
   args:
-  - BUILD_NUMBER=$INPUT_BUILD_NUMBER
+  - BUILD_NUMBER=${{ inputs.build_number }}
   entrypoint: make
   
