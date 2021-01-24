@@ -50,7 +50,7 @@ jobs:
       uses: ./.github/workflows/alpine-archive
       with:
         tar_gz_name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
-        dir_path: .
+        file_or_dir_path: ./cpp
     
     #
     # Upload the artifact under the `hello-world` name and a version/build
