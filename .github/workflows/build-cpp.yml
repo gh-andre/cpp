@@ -38,6 +38,8 @@ jobs:
     # use a local action that builds a Debian container and runs `make` in it
     - name: Make ./cpp
       uses: ./.github/workflows/debian-build
+      with:
+        build_number: ${{ env.BUILD_NUMBER }}
 
     # run the app to make sure it was built
     - name: test ./cpp
