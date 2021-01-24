@@ -45,6 +45,13 @@ jobs:
     - name: test ./cpp
       run: ./cpp
 
+    # use a local action to archive build output
+    - name: Archive ./cpp
+      uses: ./.github/workflows/alpine-archive
+      with:
+        tar_gz_name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
+        dir_name: .
+    
     #
     # Upload the artifact under the `hello-world` name and a version/build
     # suffix. Technically, we can carry artifacts all the way through the
@@ -55,8 +62,8 @@ jobs:
     - name: Upload ./cpp artifact
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
-        path: ./cpp
+        name: hello-world
+        path: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
 
   release:
     name: Create a draft release for ./cpp
@@ -79,8 +86,8 @@ jobs:
     - name: Download artifact hello-world
       uses: actions/download-artifact@v2.0.7
       with:
-        name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
-        path: hello-world/
+        name: hello-world
+        path: .
 
     # upload the build artifact as a draft release asset
     - name: Upload a Release Asset
@@ -90,6 +97,6 @@ jobs:
       with:
         # use the upload URL from the step that created a release
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./hello-world/cpp
-        asset_name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
-        asset_content_type: application/octet-stream
+        asset_path: ./hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
+        asset_name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
+        asset_content_type: application/tar+gzip
