@@ -9,7 +9,6 @@ runs:
   using: docker
   image: Dockerfile
   args:
-  - -D
   - BUILD_NUMBER=$INPUT_BUILD_NUMBER
   entrypoint: make
   
