@@ -1,0 +1,17 @@
+name: Alpine Archive
+description: Archives a directory in an Alpine container with `tar -czvf file -C dir .`
+inputs:
+  tar_gz_name:
+    description: Name of archive file to create
+    required: true
+  dir_path:
+    description: Directory path to archive
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+  - '-czvf ${{ inputs.tar_gz_name }}'
+  - '-C ${{ inputs.dir_path }}'
+  - '.'
+  entrypoint: tar
