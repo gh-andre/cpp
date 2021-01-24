@@ -11,6 +11,7 @@ runs:
   using: docker
   image: Dockerfile
   args:
-  - '-czvf ${{ inputs.tar_gz_name }}'
+  - '-czvf'
+  - '${{ inputs.tar_gz_name }}'
   - '${{ inputs.file_or_dir_path }}'
   entrypoint: tar
