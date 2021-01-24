@@ -4,7 +4,7 @@
 
 #if !defined(BUILD_NUMBER)
 #error BUILD_NUMBER must be defined when compiling this source file
-#enfif    
+#endif
 
 int main(void)
 {
