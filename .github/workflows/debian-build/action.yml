@@ -8,5 +8,8 @@ inputs:
 runs:
   using: docker
   image: Dockerfile
-  entrypoint: make -D BUILD_NUMBER=$INPUT_BUILD_NUMBER
+  args:
+  - -D
+  - BUILD_NUMBER=$INPUT_BUILD_NUMBER
+  entrypoint: make
   
