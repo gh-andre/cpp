@@ -1,2 +1,1 @@
 FROM alpine
-WORKDIR /root
