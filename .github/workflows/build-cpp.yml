@@ -95,5 +95,5 @@ jobs:
         # use the upload URL from the step that created a release
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: ./hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
-        asset_name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
+        asset_name: 'hello world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz'
         asset_content_type: application/tar+gzip
