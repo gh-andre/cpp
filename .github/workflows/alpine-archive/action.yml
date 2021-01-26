@@ -1,8 +1,8 @@
 name: Alpine Archive
-description: Archives a directory in an Alpine container with `tar -czvf file -C dir .`
+description: Archives a directory in an Alpine container with `tar -czvf file dir`
 inputs:
   tar_gz_name:
-    description: Name of archive file to create
+    description: Name of the archive file to create
     required: true
   file_or_dir_path:
     description: File or directory path to archive
