@@ -19,10 +19,8 @@ jobs:
       shell: cmd
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall" x64
-        nmake /?
         cl /c /DBUILD_NUMBER=${{ env.BUILD_NUMBER }} test.cpp
-        link test.obj
-        nuget help
+        link /OUT:cpp.exe /SUBSYSTEM:CONSOLE test.obj
         
     - name: run cpp
       shell: cmd
