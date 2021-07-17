@@ -27,4 +27,4 @@ jobs:
       run: cpp
       
     - name: test Docker
-      run: docker run --rm -it windows/nanoserver:1809 "cmd /C 'C:\Program Files (x86)'"
+      run: winpty docker run --rm -it windows/nanoserver:1809 "cmd /C 'C:\Program Files (x86)'"
