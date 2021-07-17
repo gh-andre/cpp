@@ -15,10 +15,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-#         nmake /?
     - name: run tools
+      shell: cmd
       run: |
         "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall x64"
+        dir /s /b "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\"
+        nmake /?
         cl /?
         link /?
         nuget /?
