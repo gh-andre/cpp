@@ -1,4 +1,4 @@
-name: run nuget
+name: Windows Build
 
 env:
   VERSION: 1.1.0
