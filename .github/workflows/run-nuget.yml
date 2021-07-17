@@ -24,7 +24,11 @@ jobs:
         link test.obj
         dir
         nuget /?
-
+        
+    - name: get dir
+      shell: cmd
+      run: dir
+      
     - name: run cpp
       shell: cmd
       run: cpp
