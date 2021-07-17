@@ -8,7 +8,7 @@
 # makes it impossible to distinguish multiple runs without clicking on them, which
 # would show the proper run name.
 #
-name: build cpp
+name: Debian Build
 
 env:
   #
