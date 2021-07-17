@@ -28,4 +28,4 @@ jobs:
       
     - name: test Docker
       shell: cmd
-      run: docker run --rm mcr.microsoft.com/windows/nanoserver:1809 "cmd.exe" "/C" "dir 'C:'"
+      run: docker run --rm mcr.microsoft.com/windows/nanoserver:1809 "cmd.exe" "/C" "dir 'C:\'"
