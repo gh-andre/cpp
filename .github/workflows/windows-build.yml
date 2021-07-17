@@ -28,4 +28,4 @@ jobs:
       
     - name: test Docker
       shell: cmd
-      run: docker run --rm -it windows/nanoserver:1809 "cmd /C 'C:\Program Files (x86)'"
+      run: docker run --rm windows/nanoserver:1809 "cmd /C 'C:\Program Files (x86)'"
