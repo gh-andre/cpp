@@ -23,3 +23,7 @@ jobs:
         cl -c test.cpp
         link test.obj
         nuget /?
+
+    - name: run cpp
+      shell: cmd
+      run: cpp
