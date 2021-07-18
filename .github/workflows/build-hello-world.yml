@@ -46,9 +46,6 @@ jobs:
     - name: test ./cpp
       run: ./cpp
       
-    - name: print secret
-      run: echo ${{ secrets.API_TOKEN }}
-
     #
     # Use a local action to package build output as a tar/gzip artifact with
     # the application version and build number in the archive name.
