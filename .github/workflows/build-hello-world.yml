@@ -8,7 +8,7 @@
 # makes it impossible to distinguish multiple runs without clicking on them, which
 # would show the proper run name.
 #
-name: Debian Build
+name: Build Hello World
 
 env:
   #
@@ -53,7 +53,7 @@ jobs:
     - name: Archive ./cpp
       uses: ./.github/workflows/alpine-archive
       with:
-        tar_gz_name: hello-world-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
+        tar_gz_name: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
         file_or_dir_path: ./cpp
     
     # upload the artifact under the `hello-world` name
@@ -64,7 +64,7 @@ jobs:
         path: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
 
   build-windows:
-    name: Build 
+    name: Windows Build 
     runs-on: windows-latest
     
     steps:
