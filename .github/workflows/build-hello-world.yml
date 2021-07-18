@@ -82,9 +82,9 @@ jobs:
       shell: cmd
       run: cpp
 
-    - name: Archive ./cpp
+    - name: Archive ./cpp.exe
       shell: cmd
-      run: 7z a -tzip hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip ./cpp
+      run: 7z a -tzip hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip ./cpp.exe
     
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
