@@ -78,9 +78,21 @@ jobs:
         cl /c /DBUILD_NUMBER=${{ env.BUILD_NUMBER }} test.cpp
         link /OUT:cpp.exe /SUBSYSTEM:CONSOLE test.obj
         
-    - name: run cpp
+    - name: test cpp
       shell: cmd
       run: cpp
+
+    - name: Archive ./cpp
+      shell: cmd
+      run: 7z a -tzip hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip ./cpp
+    
+    # upload the artifact under the `hello-world` name
+    - name: Upload ./cpp artifact
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: hello-world-win
+        path: hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
+
 
   release:
     name: Create a draft release for ./cpp
@@ -100,14 +112,14 @@ jobs:
         draft: true
 
     # download the artifact that was built in the `build` job in this workflow
-    - name: Download artifact hello-world
+    - name: Download Debian artifact
       uses: actions/download-artifact@v2.0.7
       with:
         name: hello-world-deb
         path: .
 
     # upload the build artifact as a draft release asset
-    - name: Upload a Release Asset
+    - name: Upload a Debian Release Asset
       uses: actions/upload-release-asset@v1.0.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -117,3 +129,20 @@ jobs:
         asset_path: ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
         asset_name: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
         asset_content_type: application/tar+gzip
+
+    - name: Download Windows artifact
+      uses: actions/download-artifact@v2.0.7
+      with:
+        name: hello-world-win
+        path: .
+
+    - name: Upload a Windows Release Asset
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        # use the upload URL from the step that created a release
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
+        asset_name: hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
+        asset_content_type: application/zip
