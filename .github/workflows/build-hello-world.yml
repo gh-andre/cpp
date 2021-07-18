@@ -71,6 +71,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    # batch file must be prefixed with `call` for this step to work
     - name: build cpp
       shell: cmd
       run: |
@@ -82,6 +83,7 @@ jobs:
       shell: cmd
       run: cpp
 
+    # 7zip is pre-loaded on Windows VMs
     - name: Archive ./cpp.exe
       shell: cmd
       run: 7z a -tzip hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip ./cpp.exe
