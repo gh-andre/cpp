@@ -95,7 +95,29 @@ jobs:
         name: hello-world-win
         path: hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
 
-
+  test-matix:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+       include:
+         - platform: x64
+           config: Debug
+         - platform: x64
+           config: Release
+         - platform: Win32
+           config: Debug
+         - platform: Win32
+           config: Release
+    steps:
+      - name: Echo matrix variables
+        shell: cmd
+        env:
+          PLATFORM: ${{ matrix.platform }}
+          CONFIG: ${{ matrix.config }}
+        run: |
+          echo PL: %PLATFORM%
+          echo CFG: %CONFIG%
+        
   release:
     name: Create a draft release for ./cpp
     needs: [build-debian, build-windows]
