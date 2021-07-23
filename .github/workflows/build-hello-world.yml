@@ -118,6 +118,8 @@ jobs:
         run: |
           echo PL: %PLATFORM%
           echo CFG: %CONFIG%
+          echo %COMPUTERNAME%
+          date /t
           dir /b /s ..
 
   consume-matrix:
@@ -130,6 +132,8 @@ jobs:
       shell: cmd
       run: |
         echo Done with matrix
+        echo %COMPUTERNAME%
+        date /t
         dir /b /s ..
 
   release:
