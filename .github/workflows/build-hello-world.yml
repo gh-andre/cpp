@@ -95,7 +95,8 @@ jobs:
         name: hello-world-win
         path: hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
 
-  test-matix:
+  test-matrix:
+    needs: [build-windows]
     runs-on: windows-latest
     strategy:
       matrix:
@@ -117,7 +118,20 @@ jobs:
         run: |
           echo PL: %PLATFORM%
           echo CFG: %CONFIG%
-        
+          dir /b /s ..
+
+  consume-matrix:
+    name: Consumes test matrix artifacts
+    needs: [test-matrix]
+    runs-on: windows-latest
+    
+    steps:
+    - name: Finalize matrix
+      shell: cmd
+      run: |
+        echo Done with matrix
+        dir /b /s ..
+
   release:
     name: Create a draft release for ./cpp
     needs: [build-debian, build-windows]
