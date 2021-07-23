@@ -119,7 +119,8 @@ jobs:
           echo PL: %PLATFORM%
           echo CFG: %CONFIG%
           echo %COMPUTERNAME%
-          date /t
+          date /t > date-%PLATFORM%-%CONFIG%.txt
+          type date-%PLATFORM%-%CONFIG%.txt
           dir /b /s ..
 
   consume-matrix:
