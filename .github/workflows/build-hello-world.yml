@@ -30,6 +30,8 @@ jobs:
   build-debian:
     name: Debian Build
     runs-on: ubuntu-latest
+    env:
+      DNAME: abc-${{ env.VERSION }}
     
     steps:
     # checkout the latest source
@@ -66,6 +68,8 @@ jobs:
   build-windows:
     name: Windows Build 
     runs-on: windows-latest
+    env:
+      DNAME: abc-${{ env.VERSION }}
     
     steps:
     - name: Checkout
@@ -141,6 +145,8 @@ jobs:
     name: Create a draft release for ./cpp
     needs: [build-debian, build-windows]
     runs-on: ubuntu-latest
+    env:
+      DNAME: abc-${{ env.VERSION }}
 
     steps:
     # create a draft GitHub release
