@@ -112,11 +112,13 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           CONFIG: ${{ matrix.build-config }}
           MAKE_FLAGS: ${{ matrix.make-flags }}
+          DNAME: abc-${{ env.VERSION }}
         run: |
           echo PL: %PLATFORM%
           echo CFG: %CONFIG%
           echo FL: %MAKE_FLAGS%
-          echo %COMPUTERNAME%
+          echo VM: %COMPUTERNAME%
+          echo DNAME: %DNAME%
           date /t > date-%PLATFORM%-%CONFIG%.txt
           type date-%PLATFORM%-%CONFIG%.txt
           dir /b /s ..
