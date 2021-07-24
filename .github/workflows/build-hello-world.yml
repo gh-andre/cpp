@@ -30,8 +30,6 @@ jobs:
   build-debian:
     name: Debian Build
     runs-on: ubuntu-latest
-    env:
-      DNAME: abc-${{ env.VERSION }}
     
     steps:
     # checkout the latest source
@@ -46,6 +44,8 @@ jobs:
 
     # run the app to make sure it was built
     - name: test ./cpp
+      env:
+        DNAME: abc-${{ env.VERSION }}
       run: ./cpp
       
     #
@@ -68,8 +68,6 @@ jobs:
   build-windows:
     name: Windows Build 
     runs-on: windows-latest
-    env:
-      DNAME: abc-${{ env.VERSION }}
     
     steps:
     - name: Checkout
@@ -78,6 +76,8 @@ jobs:
     # batch file must be prefixed with `call` for this step to work
     - name: build cpp
       shell: cmd
+      env:
+        DNAME: abc-${{ env.VERSION }}
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall" x64
         cl /c /DBUILD_NUMBER=${{ env.BUILD_NUMBER }} test.cpp
@@ -145,8 +145,6 @@ jobs:
     name: Create a draft release for ./cpp
     needs: [build-debian, build-windows]
     runs-on: ubuntu-latest
-    env:
-      DNAME: abc-${{ env.VERSION }}
 
     steps:
     # create a draft GitHub release
