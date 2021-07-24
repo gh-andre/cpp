@@ -194,7 +194,7 @@ jobs:
         asset_content_type: application/zip
 
     - name: Publish package
-      if: ${{ github.event.inputs.PKG_REV != "" }}
+      if: ${{ github.event.inputs.PKG_REV != '' }}
       env:
         PKG_REV: ${{ github.event.inputs.PKG_REV }}
       run: echo PKG_REV = $PKG_REV
