@@ -25,6 +25,10 @@ env:
 
 # manual and REST API runs only
 on: workflow_dispatch
+  inputs:
+    PKG_REV:
+      description: Package revision
+      required: false
 
 jobs:
   build-debian:
@@ -187,3 +191,7 @@ jobs:
         asset_path: ./hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         asset_name: hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         asset_content_type: application/zip
+
+     - name: Publish package
+       if: ${{ env.PKG_REV != "" }}
+       run: echo PKG_REV = $PKG_REV
