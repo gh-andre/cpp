@@ -32,9 +32,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - env:
-        DNAME: abc-${{ env.VERSION }}
-        
     # checkout the latest source
     - name: Checkout
       uses: actions/checkout@v2
@@ -71,12 +68,6 @@ jobs:
     runs-on: windows-latest
     
     steps:
-    - env:
-        DNAME: abc-${{ env.VERSION }}
-
-    - name: test DNAME
-      run: echo %DNAME%
-
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -121,13 +112,11 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           CONFIG: ${{ matrix.build-config }}
           MAKE_FLAGS: ${{ matrix.make-flags }}
-          DNAME: abc-${{ env.VERSION }}
         run: |
           echo PL: %PLATFORM%
           echo CFG: %CONFIG%
           echo FL: %MAKE_FLAGS%
           echo VM: %COMPUTERNAME%
-          echo DNAME: %DNAME%
           date /t > date-%PLATFORM%-%CONFIG%.txt
           type date-%PLATFORM%-%CONFIG%.txt
           dir /b /s ..
@@ -152,12 +141,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - env:
-        DNAME: abc-${{ env.VERSION }}
-
-    - name: test DNAME
-      run: echo $DNAME
-      
     # create a draft GitHub release
     - name: Create a draft release
       id: create_release
