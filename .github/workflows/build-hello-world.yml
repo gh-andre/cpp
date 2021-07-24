@@ -32,6 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - env:
+        DNAME: abc-${{ env.VERSION }}
+        
     # checkout the latest source
     - name: Checkout
       uses: actions/checkout@v2
@@ -44,8 +47,6 @@ jobs:
 
     # run the app to make sure it was built
     - name: test ./cpp
-      env:
-        DNAME: abc-${{ env.VERSION }}
       run: ./cpp
       
     #
@@ -70,14 +71,18 @@ jobs:
     runs-on: windows-latest
     
     steps:
+    - env:
+        DNAME: abc-${{ env.VERSION }}
+
+    - name: test DNAME
+      run: echo %DNAME%
+
     - name: Checkout
       uses: actions/checkout@v2
 
     # batch file must be prefixed with `call` for this step to work
     - name: build cpp
       shell: cmd
-      env:
-        DNAME: abc-${{ env.VERSION }}
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall" x64
         cl /c /DBUILD_NUMBER=${{ env.BUILD_NUMBER }} test.cpp
@@ -147,6 +152,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - env:
+        DNAME: abc-${{ env.VERSION }}
+
+    - name: test DNAME
+      run: echo $DNAME
+      
     # create a draft GitHub release
     - name: Create a draft release
       id: create_release
