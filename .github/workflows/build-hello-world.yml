@@ -100,24 +100,22 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
+       platform: [x64, Win32]
+       build-config: [Debug, Release]
        include:
-         - platform: x64
-           config: Debug
-         - platform: x64
-           config: Release
-         - platform: Win32
-           config: Debug
-         - platform: Win32
-           config: Release
+         - build-config: Debug
+           make-flags: DEBUG=1
     steps:
       - name: Echo matrix variables
         shell: cmd
         env:
           PLATFORM: ${{ matrix.platform }}
-          CONFIG: ${{ matrix.config }}
+          CONFIG: ${{ matrix.build-config }}
+          MAKE_FLAGS: ${{ matrix.make-flags }}
         run: |
           echo PL: %PLATFORM%
           echo CFG: %CONFIG%
+          echo FL: %MAKE_FLAGS%
           echo %COMPUTERNAME%
           date /t > date-%PLATFORM%-%CONFIG%.txt
           type date-%PLATFORM%-%CONFIG%.txt
