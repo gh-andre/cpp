@@ -10,6 +10,13 @@
 #
 name: Build Hello World
 
+# manual and REST API runs only
+on:
+  workflow_dispatch:
+    inputs:
+      PKG_REV:
+        description: Package revision
+        required: false
 env:
   #
   # These version variables are half-measures for tracking build numbers and
@@ -22,14 +29,7 @@ env:
   #
   VERSION: 1.1.0
   BUILD_NUMBER: ${{ github.run_number }}
-
-# manual and REST API runs only
-on:
-  workflow_dispatch:
-    inputs:
-      PKG_REV:
-        description: Package revision
-        required: false
+  PKG_REV: ${{ github.event.inputs.PKG_REV }}
 
 jobs:
   build-debian:
@@ -195,6 +195,4 @@ jobs:
 
     - name: Publish package
       if: ${{ github.event.inputs.PKG_REV != '' }}
-      env:
-        PKG_REV: ${{ github.event.inputs.PKG_REV }}
       run: echo PKG_REV = $PKG_REV
