@@ -24,11 +24,12 @@ env:
   BUILD_NUMBER: ${{ github.run_number }}
 
 # manual and REST API runs only
-on: workflow_dispatch
-  inputs:
-    PKG_REV:
-      description: Package revision
-      required: false
+on:
+  workflow_dispatch:
+    inputs:
+      PKG_REV:
+        description: Package revision
+        required: false
 
 jobs:
   build-debian:
@@ -192,6 +193,8 @@ jobs:
         asset_name: hello-world-win-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         asset_content_type: application/zip
 
-     - name: Publish package
-       if: ${{ env.PKG_REV != "" }}
-       run: echo PKG_REV = $PKG_REV
+    - name: Publish package
+      if: ${{ github.event.inputs.PKG_REV != "" }}
+      env:
+        PKG_REV: ${{ github.event.inputs.PKG_REV }}
+      run: echo PKG_REV = $PKG_REV
