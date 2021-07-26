@@ -1,4 +1,10 @@
 #
+# github.run_number is maintained per workflow file name. The workflow name may
+# change without affecting the run_number counter, but when the file name changes,
+# the counter is reset to one. This means that for each new version to have its
+# own counter starting from one, the workflow need to be maintained per version
+# and copied for each new version, with the old name becoming immutable.
+#
 # Workflow name won't accept context expressions, such as ${{ github.run_number }}.
 #
 # Moreover, Actions UI confuses workflow names in different branches and while the
@@ -145,7 +151,7 @@ jobs:
         asset_name: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
         asset_content_type: application/tar+gzip
 
-      # same steps would be used for the x86 platform
+      # same steps would be used for the x86 platform (not done in this script)
     - name: Download Windows x64 artifact
       uses: actions/download-artifact@v2.0.7
       with:
