@@ -1,0 +1,14 @@
+<html>
+<head>
+  <title>Test Page</title>
+  <script type="text/javascript">
+    function addHTML()
+    {
+      document.getElementById("body_text").appendChild(document.createTextNode("ABC"));
+    }
+  </script>
+  </head>
+  <body onload="addHTML()">
+    <p id="body_text"></p>
+  </body>
+</html>
