@@ -29,7 +29,7 @@ env:
   # Seems that the only way to track  build numbers per branch in GitHub is
   # to have different workflow files, which is a lot of duplication.
   #
-  VERSION: 1.1.0
+  VERSION: 1.3.0
   BUILD_NUMBER: ${{ github.run_number }}
   PKG_REV: ${{ github.event.inputs.PKG_REV }}
 
