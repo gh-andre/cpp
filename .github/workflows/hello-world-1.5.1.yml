@@ -15,7 +15,7 @@
 # would show the proper run name. Using per-branch workflow file name seems to be
 # the only way around this.
 #
-name: Hello World 1.5.0
+name: Hello World 1.5.1
 
 # manual and REST API runs only
 on: workflow_dispatch
