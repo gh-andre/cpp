@@ -3,7 +3,11 @@
 # change without affecting the run_number counter, but when the file name changes,
 # the counter is reset to one. This means that for each new version to have its
 # own counter starting from one, the workflow need to be maintained per version
-# and renamed for each new version.
+# and renamed for each new version. However, it gets worse, and while  renaming
+# the workflow file name in `master` resets the run counter and works well in
+# tracking past and new builds on `master`, workflow files in other branches,
+# like in branch `1-5` in this repository, are simply ignored, so the same
+# technique won't work outside of `master`.
 #
 # Workflow name won't accept context expressions, such as ${{ github.run_number }}.
 #
