@@ -49,9 +49,10 @@ jobs:
        
     steps:
     - name: Print vars
-      run echo VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}
+      run: |
+        echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
 
-build-debian:
+  build-debian:
     name: Debian Build
     runs-on: ubuntu-latest
     
