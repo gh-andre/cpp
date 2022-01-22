@@ -39,7 +39,19 @@ env:
   PKG_REV: ${{ github.event.inputs.PKG_REV }}
 
 jobs:
-  build-debian:
+  test-matrix-job:
+    name: Test Matrix Job 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+       build-platform: [x64, Win32]
+       build-config: [Debug, Release]
+       
+    steps:
+    - name: Print vars
+      run echo VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}
+
+build-debian:
     name: Debian Build
     runs-on: ubuntu-latest
     
