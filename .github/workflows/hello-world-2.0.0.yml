@@ -46,11 +46,15 @@ jobs:
       matrix:
        build-platform: [x64, Win32]
        build-config: [Debug, Release]
+       include:
+       - build-config: Release
+         release-only-var: This should appear only in a release build
        
     steps:
     - name: Print vars
       run: |
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
+        echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
 
   build-debian:
     name: Debian Build
