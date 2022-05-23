@@ -76,7 +76,8 @@ jobs:
       run: ./cpp
       
     - name: Test echo
-      run: echo 'ABC: ' ${{ github.actor }}
+      run: |
+        echo 'ABC: ' ${{ github.actor }}
       
     #
     # Use a local action to package build output as a tar/gzip artifact with
