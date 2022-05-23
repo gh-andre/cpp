@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build Fedora image
-      run: docker build --file devops/Dockerfile.fedora --tag fit-fedora:${{ env.IMAGE_TAG }}
+      run: docker build --file devops/Dockerfile.fedora --tag fit-fedora:${{ env.IMAGE_TAG }} devops
 
     - name: Docker Login
       uses: docker/login-action@v2.0.0
