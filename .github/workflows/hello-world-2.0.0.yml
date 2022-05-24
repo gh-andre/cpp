@@ -41,7 +41,7 @@ env:
 jobs:
   test-matrix-job:
     name: Test Matrix Job 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
        build-platform: [x64, Win32]
@@ -58,7 +58,7 @@ jobs:
 
   build-debian:
     name: Debian Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     
     steps:
     # checkout the latest source
@@ -74,10 +74,6 @@ jobs:
     # run the app to make sure it was built
     - name: test ./cpp
       run: ./cpp
-      
-    - name: Test echo
-      run: |
-        echo 'ABC: ' ${{ github.actor }}
       
     #
     # Use a local action to package build output as a tar/gzip artifact with
@@ -98,7 +94,7 @@ jobs:
 
   build-windows:
     name: Windows Build 
-    runs-on: windows-latest
+    runs-on: windows-2019
     strategy:
       matrix:
        build-platform: [x64, Win32]
