@@ -57,14 +57,10 @@ jobs:
        
     steps:
     - name: Print vars
-      env:
-        TEST_INPUT: ${{ github.event.inputs.test-input }}
       run: |
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
         echo 'TEST INPUT (var): ${{ github.event.inputs.test-input }}'
-        echo 'TEST INPUT (env): $TEST_INPUT'
-        env
 
   build-debian:
     name: Debian Build
