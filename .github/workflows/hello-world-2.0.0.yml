@@ -61,7 +61,7 @@ jobs:
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
         echo 'TEST INPUT: ${{ github.event.inputs.test-input }}'
-        env | grep TEST_INPUT
+        env
 
   build-debian:
     name: Debian Build
