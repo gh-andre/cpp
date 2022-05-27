@@ -27,7 +27,7 @@ on:
     inputs:
       test-input:
         description: Test input value
-        default: ${{ github.run_number }}
+        default: ABC
         required: false
 env:
   #
