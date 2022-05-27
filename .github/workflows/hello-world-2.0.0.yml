@@ -43,6 +43,8 @@ env:
   BUILD_NUMBER: ${{ github.run_number }}
   PKG_REV: ${{ github.event.inputs.PKG_REV }}
 
+  TEST_INPUT2: ${{ github.event.inputs.test-input }}
+
 jobs:
   test-matrix-job:
     name: Test Matrix Job 
@@ -64,6 +66,7 @@ jobs:
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
         echo 'TEST INPUT (var): ${{ env.TEST_INPUT }}'
+        echo 'TEST INPUT2 (var): ${{ env.TEST_INPUT2 }}'
 
   build-debian:
     name: Debian Build
