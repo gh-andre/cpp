@@ -57,8 +57,12 @@ jobs:
        - build-config: Release
          release-only-var: This should appear only in a release build
 
-    env:
-     THREE_PART_VAR: ${{ env.TEST_INPUT2 }}
+    #
+    # Unlike Azure pipeline variables, evv mappings cannot refer
+    # to each other and this definition will generate errors.
+    #
+    #env:
+    # THREE_PART_VAR: ${{ env.TEST_INPUT2 }}
 
     steps:
     - name: Print vars
