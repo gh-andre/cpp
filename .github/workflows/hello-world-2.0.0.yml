@@ -73,7 +73,7 @@ jobs:
     # to each other and this definition will generate errors.
     #
     #env:
-    # THREE_PART_VAR: '${{ env.VERSION }}/${{ matrix.build-platform) }}/${{ github.event.inputs.TEST_INPUT }}'
+    # THREE_PART_VAR: '${{ env.VERSION }}/${{ matrix.build-platform }}/${{ github.event.inputs.TEST_INPUT }}'
 
     steps:
     - name: Print vars
@@ -81,7 +81,7 @@ jobs:
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
         echo 'THREE_PART_VAR_FMT: ${{ format(env.THREE_PART_VAR_FMT, env.VERSION, matrix.build-platform) }}'
-        echo 'THREE_PART_VAR: ${{ env.VERSION }}/${{ matrix.build-platform) }}/${{ github.event.inputs.TEST_INPUT }}'
+        echo 'THREE_PART_VAR: ${{ env.VERSION }}/${{ matrix.build-platform }}/${{ github.event.inputs.TEST_INPUT }}'
 
   build-debian:
     name: Debian Build
