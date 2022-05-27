@@ -43,6 +43,17 @@ env:
   BUILD_NUMBER: ${{ github.run_number }}
   PKG_REV: ${{ github.event.inputs.PKG_REV }}
 
+  #
+  # Environment mapping cannot be used within another env block,
+  # which requires juggling prefixes and suffixes that can be
+  # constructed at each level. If we wanted to construct a value
+  # from a version, matrix platform and input that can be reused
+  # between steps, we would need to construct a suffix from a
+  # matrix platform and input and then combine it with version
+  # where the full text is required. Alternatively, we can use
+  # format like this to make it more descriptive.
+  #
+  # version, platform
   THREE_PART_VAR_FMT: '{0}/{1}/${{ github.event.inputs.TEST_INPUT }}'
 
 jobs:
@@ -62,14 +73,15 @@ jobs:
     # to each other and this definition will generate errors.
     #
     #env:
-    # THREE_PART_VAR: ${{ env.TEST_INPUT2 }}
+    # THREE_PART_VAR: '${{ env.VERSION }}/${{ matrix.build-platform) }}/${{ github.event.inputs.TEST_INPUT }}'
 
     steps:
     - name: Print vars
       run: |
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
-        echo 'THREE_PART_VAR: ${{ format(env.THREE_PART_VAR_FMT, env.VERSION, env.BUILD_NUMBER) }}'
+        echo 'THREE_PART_VAR_FMT: ${{ format(env.THREE_PART_VAR_FMT, env.VERSION, matrix.build-platform) }}'
+        echo 'THREE_PART_VAR: ${{ env.VERSION }}/${{ matrix.build-platform) }}/${{ github.event.inputs.TEST_INPUT }}'
 
   build-debian:
     name: Debian Build
