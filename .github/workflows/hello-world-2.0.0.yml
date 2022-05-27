@@ -47,6 +47,8 @@ jobs:
   test-matrix-job:
     name: Test Matrix Job 
     runs-on: ubuntu-20.04
+    env:
+     TEST_INPUT: ${{ github.event.inputs.test-input }}
     strategy:
       matrix:
        build-platform: [x64, Win32]
@@ -54,9 +56,6 @@ jobs:
        include:
        - build-config: Release
          release-only-var: This should appear only in a release build
-       
-       env:
-         TEST_INPUT: ${{ github.event.inputs.test-input }}
     steps:
     - name: Print vars
       run: |
