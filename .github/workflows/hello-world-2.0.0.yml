@@ -25,7 +25,7 @@ name: Hello World 2.0.0
 on:
   workflow_dispatch:
     inputs:
-      test-input:
+      TEST_INPUT:
         description: Test input value
         default: ABC
         required: false
@@ -43,7 +43,7 @@ env:
   BUILD_NUMBER: ${{ github.run_number }}
   PKG_REV: ${{ github.event.inputs.PKG_REV }}
 
-  TEST_INPUT2: ${{ github.event.inputs.test-input }}
+  THREE_PART_VAR_FMT: '{0}/{1}/${{ github.event.inputs.TEST_INPUT }}'
 
 jobs:
   test-matrix-job:
@@ -58,15 +58,14 @@ jobs:
          release-only-var: This should appear only in a release build
 
     env:
-     TEST_INPUT: ${{ env.TEST_INPUT2 }}
+     THREE_PART_VAR: ${{ env.TEST_INPUT2 }}
 
     steps:
     - name: Print vars
       run: |
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
-        echo 'TEST INPUT (var): ${{ env.TEST_INPUT }}'
-        echo 'TEST INPUT2 (var): ${{ env.TEST_INPUT2 }}'
+        echo 'THREE_PART_VAR: ${{ format(THREE_PART_FMT, env.VERSION, env.BUILD_NUMBER) }}'
 
   build-debian:
     name: Debian Build
