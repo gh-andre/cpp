@@ -55,12 +55,14 @@ jobs:
        - build-config: Release
          release-only-var: This should appear only in a release build
        
+       env:
+         TEST_INPUT: ${{ github.event.inputs.test-input }}
     steps:
     - name: Print vars
       run: |
         echo 'VARS: ${{ matrix.build-platform }} ${{ matrix.build-config }}'
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
-        echo 'TEST INPUT (var): ${{ github.event.inputs.test-input }}'
+        echo 'TEST INPUT (var): ${{ env.TEST_INPUT }}'
 
   build-debian:
     name: Debian Build
