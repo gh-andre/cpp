@@ -19,7 +19,7 @@
 # would show the proper run name. Using per-branch workflow file name seems to be
 # the only way around this.
 #
-name: Hello World 2.1.0
+name: Hello World 2.2.0
 
 # manual and REST API runs only
 on:
@@ -39,7 +39,7 @@ env:
   # Seems that the only way to track  build numbers per branch in GitHub is
   # to rename workflow file name in each branch.
   #
-  VERSION: 2.1.0
+  VERSION: 2.2.0
   BUILD_NUMBER: ${{ github.run_number }}
   PKG_REV: ${{ github.event.inputs.PKG_REV }}
 
