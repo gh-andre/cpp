@@ -1,6 +1,7 @@
 #include <cstdio>
+#include <cstdlib>
 
-#define VERSION "1.3.0"
+#define VERSION "2.1.0"
 
 #if !defined(BUILD_NUMBER)
 #error BUILD_NUMBER must be defined when compiling this source file
@@ -10,5 +11,6 @@ int main(void)
 {
     printf("Hello, world!\n");
     printf("\nv%s build %d\n", VERSION, BUILD_NUMBER);
-    return 0;
+
+    return EXIT_SUCCESS;
 }
