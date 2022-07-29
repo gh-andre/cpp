@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#define VERSION "2.6.1"
+#define VERSION "2.6.2"
 
 #if !defined(BUILD_NUMBER)
 #error BUILD_NUMBER must be defined when compiling this source file
