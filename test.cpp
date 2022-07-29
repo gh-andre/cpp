@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 
+// this comment is added on a 2.8.x branch
 #define VERSION "2.8.0"
 
 #if !defined(BUILD_NUMBER)
