@@ -1,9 +1,0 @@
-name: Hello World 2.5.1
-
-on: workflow_dispatch
-  
-jobs:
-  dummy-job:
-    runs-on: ubuntu-20.04
-    steps:
-    - run: echo done
