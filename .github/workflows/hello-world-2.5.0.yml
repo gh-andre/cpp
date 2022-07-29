@@ -19,7 +19,7 @@
 # would show the proper run name. Using per-branch workflow file name seems to be
 # the only way around this.
 #
-name: Hello World 2.5.0
+name: Hello World 2.5.0 (test)
 
 # manual and REST API runs only
 on:
