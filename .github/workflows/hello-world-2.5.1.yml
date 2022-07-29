@@ -4,4 +4,6 @@ on: workflow_dispatch
   
 jobs:
   dummy-job:
-    steps: echo done
+    runs-on: ubuntu-20.04
+    steps:
+    - run: echo done
