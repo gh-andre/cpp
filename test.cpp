@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 // this comment is added on a 2.8.x branch
-#define VERSION "2.8.0"
+#define VERSION "2.8.1"
 
 #if !defined(BUILD_NUMBER)
 #error BUILD_NUMBER must be defined when compiling this source file
