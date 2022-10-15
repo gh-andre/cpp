@@ -223,7 +223,7 @@ jobs:
       with:
         allowUpdates: true
         name: v${{ env.VERSION }} TEST
-        #tag: ${{ env.VERSION }}
+        tag: ${{ env.VERSION }}-test1
         artifacts: ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
         artifactContentType: application/tar+gzip
         
@@ -233,6 +233,6 @@ jobs:
         allowUpdates: true
         generateReleaseNotes: true
         name: v${{ env.VERSION }} TEST
-        #tag: ${{ env.VERSION }}
+        tag: ${{ env.VERSION }}-test2
         artifacts: ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         artifactContentType: application/zip
