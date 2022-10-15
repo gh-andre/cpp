@@ -217,3 +217,14 @@ jobs:
         asset_path: ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         asset_name: hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         asset_content_type: application/zip
+
+    - name: TEST RELEASE
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        name: v${{ env.VERSION }} TEST
+        tag: ${{ env.VERSION }}
+        artifacts: |
+          ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz,
+          ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
+        artifactContentType: 'application/tar+gzip, application/zip'
