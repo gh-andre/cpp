@@ -223,7 +223,7 @@ jobs:
       with:
         allowUpdates: true
         name: v${{ env.VERSION }} TEST
-        tag: ${{ env.VERSION }}
+        #tag: ${{ env.VERSION }}
         artifacts: ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
         artifactContentType: application/tar+gzip
         
@@ -231,7 +231,8 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         allowUpdates: true
+        generateReleaseNotes: true
         name: v${{ env.VERSION }} TEST
-        tag: ${{ env.VERSION }}
+        #tag: ${{ env.VERSION }}
         artifacts: ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         artifactContentType: application/zip
