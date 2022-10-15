@@ -228,3 +228,22 @@ jobs:
           ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz,
           ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
         artifactContentType: 'application/tar+gzip, application/zip'
+
+    - name: TEST RELEASE gz
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        name: v${{ env.VERSION }} TEST
+        tag: ${{ env.VERSION }}
+        artifacts: ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
+          ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
+        artifactContentType: 'application/tar+gzip, application/zip'
+        
+    - name: TEST RELEASE zip
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        name: v${{ env.VERSION }} TEST
+        tag: ${{ env.VERSION }}
+        artifacts: ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
+        artifactContentType: application/zip
