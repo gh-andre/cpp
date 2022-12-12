@@ -121,14 +121,14 @@ jobs:
     
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
-      uses: actions/upload-artifact@v2.2.1
+      uses: actions/upload-artifact@v3
       with:
         name: hello-world-deb
         path: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
 
   build-windows:
     name: Windows Build 
-    runs-on: windows-2019
+    runs-on: windows-2022
     strategy:
       matrix:
        build-platform: [x64, Win32]
@@ -140,7 +140,7 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
       # checkout a repository with test data under cpp/cpp/csv
     - name: Checkout CSV
@@ -155,7 +155,7 @@ jobs:
       env:
         VCVARS_ARGS: ${{ matrix.vcvars-args }}
       run: |
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall" %VCVARS_ARGS%
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall" %VCVARS_ARGS%
         cl /c /DBUILD_NUMBER=${{ env.BUILD_NUMBER }} test.cpp
         link /OUT:cpp.exe /SUBSYSTEM:CONSOLE test.obj
         
@@ -173,7 +173,7 @@ jobs:
     
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
-      uses: actions/upload-artifact@v2.2.1
+      uses: actions/upload-artifact@v3
       with:
         name: hello-world-win-${{ matrix.build-platform }}
         path: hello-world-win-${{ matrix.build-platform }}-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
@@ -187,7 +187,7 @@ jobs:
     # create a draft GitHub release
     - name: Create a draft release
       id: create_release
-      uses: actions/create-release@v1.1.4
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -197,14 +197,14 @@ jobs:
 
     # download the artifact that was built in the `build` job in this workflow
     - name: Download Debian artifact
-      uses: actions/download-artifact@v2.0.7
+      uses: actions/download-artifact@v3
       with:
         name: hello-world-deb
         path: .
 
     # upload the build artifact as a draft release asset
     - name: Upload a Debian Release Asset
-      uses: actions/upload-release-asset@v1.0.2
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -216,13 +216,13 @@ jobs:
 
       # same steps would be used for the x86 platform (not done in this script)
     - name: Download Windows x64 artifact
-      uses: actions/download-artifact@v2.0.7
+      uses: actions/download-artifact@v3
       with:
         name: hello-world-win-x64
         path: .
 
     - name: Upload a Windows Release Asset
-      uses: actions/upload-release-asset@v1.0.2
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
