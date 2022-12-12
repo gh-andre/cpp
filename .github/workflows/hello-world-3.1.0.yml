@@ -92,17 +92,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
+      # checkout a repository with test data under cpp/cpp/csv
     - name: Checkout CSV
       uses: actions/checkout@v3
       with:
         repository: 'gh-andre/csv'
         path: csv
 
-    - name: ls
-      run: |
-        pwd
-        ls -Rl
-      
     # use a local action that builds a Debian container and runs `make` in it
     - name: Make ./cpp
       uses: ./.github/workflows/debian-build
@@ -146,15 +142,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+      # checkout a repository with test data under cpp/cpp/csv
     - name: Checkout CSV
       uses: actions/checkout@v3
       with:
         repository: 'gh-andre/csv'
         path: csv
-
-    - name: dir
-      shell: cmd
-      run: dir /S /B
 
     # batch file must be prefixed with `call` for this step to work
     - name: build cpp
