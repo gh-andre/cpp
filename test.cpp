@@ -19,8 +19,10 @@ int main(void)
         return EXIT_FAILURE;
     }
     
+    char buffer[256];
+    
     while(!feof(csv)) {
-        fprintf(stdout, "%s\n", fgets(csv));
+        fprintf(stdout, "%s\n", fgets(buffer, sizeof(buffer), csv));
     }
     
     fclose(csv);
