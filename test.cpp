@@ -22,7 +22,9 @@ int main(void)
     char buffer[256];
     
     while(!feof(csv)) {
-        fprintf(stdout, "%s\n", fgets(buffer, sizeof(buffer), csv));
+        const char *line = fgets(buffer, sizeof(buffer), csv);
+        if(line)
+            fprintf(stdout, "%s\n", line);
     }
     
     fclose(csv);
