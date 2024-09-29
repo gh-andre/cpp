@@ -121,7 +121,7 @@ jobs:
     
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: hello-world-deb
         path: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
@@ -144,7 +144,7 @@ jobs:
 
       # checkout a repository with test data under cpp/cpp/csv
     - name: Checkout CSV
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: 'gh-andre/csv'
         path: csv
@@ -173,7 +173,7 @@ jobs:
     
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: hello-world-win-${{ matrix.build-platform }}
         path: hello-world-win-${{ matrix.build-platform }}-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
@@ -184,15 +184,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Create a draft release
-      uses: softprops/action-gh-release@v2
-      with:
-        token : ${{ secrets.GITHUB_TOKEN }}
-        tag_name: ${{ env.VERSION }}
-        target_commitish: ${{ github.ref_name }}
-        name: cpp ${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
-        draft: true
-
     # download the artifact that was built in the `build` job in this workflow
     - name: Download Debian artifact
       uses: actions/download-artifact@v4
@@ -206,6 +197,15 @@ jobs:
       with:
         name: hello-world-win-x64
         path: .
+
+    - name: Create a draft release
+      uses: softprops/action-gh-release@v2
+      with:
+        token : ${{ secrets.GITHUB_TOKEN }}
+        tag_name: ${{ env.VERSION }}
+        target_commitish: ${{ github.ref_name }}
+        name: cpp ${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
+        draft: true
 
     - name: Upload artifacts
       uses: softprops/action-gh-release@v2
