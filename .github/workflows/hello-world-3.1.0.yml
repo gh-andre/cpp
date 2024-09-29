@@ -90,11 +90,11 @@ jobs:
     steps:
     # checkout the latest source
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       
       # checkout a repository with test data under cpp/cpp/csv
     - name: Checkout CSV
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: 'gh-andre/csv'
         path: csv
@@ -140,7 +140,7 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
       # checkout a repository with test data under cpp/cpp/csv
     - name: Checkout CSV
@@ -184,17 +184,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # create a draft GitHub release
-    - name: Create a draft release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.VERSION }}
-        release_name: v${{ env.VERSION }}
-        draft: true
-
     - name: Create a draft release
       uses: softprops/action-gh-release@v2
       with:
