@@ -195,24 +195,21 @@ jobs:
         release_name: v${{ env.VERSION }}
         draft: true
 
+    - name: Create a draft release
+      uses: softprops/action-gh-release@v2
+      with:
+        token : ${{ secrets.GITHUB_TOKEN }}
+        tag_name: ${{ env.VERSION }}
+        target_commitish: ${{ github.ref_name }}
+        name: cpp ${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
+        draft: true
+
     # download the artifact that was built in the `build` job in this workflow
     - name: Download Debian artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: hello-world-deb
         path: .
-
-    # upload the build artifact as a draft release asset
-    - name: Upload a Debian Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        # use the upload URL from the step that created a release
-        upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
-        asset_name: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
-        asset_content_type: application/tar+gzip
 
       # same steps would be used for the x86 platform (not done in this script)
     - name: Download Windows x64 artifact
@@ -221,13 +218,14 @@ jobs:
         name: hello-world-win-x64
         path: .
 
-    - name: Upload a Windows Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload artifacts
+      uses: softprops/action-gh-release@v2
       with:
-        # use the upload URL from the step that created a release
-        upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
-        asset_name: hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
-        asset_content_type: application/zip
+        token : ${{ secrets.GITHUB_TOKEN }}
+        tag_name: ${{ env.VERSION }}
+        target_commitish: ${{ github.ref_name }}
+        name: cpp ${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
+        files: |
+          ./hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
+          ./hello-world-win-x64-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
+        draft: true
