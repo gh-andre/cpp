@@ -202,7 +202,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         token : ${{ secrets.GITHUB_TOKEN }}
-        tag_name: ${{ env.VERSION }}
+        tag_name: ver-${{ env.VERSION }}
         target_commitish: ${{ github.ref_name }}
         name: cpp ${{ env.VERSION }}+${{ env.BUILD_NUMBER }}
         draft: true
