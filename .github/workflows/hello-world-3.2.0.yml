@@ -62,6 +62,7 @@ jobs:
     runs-on: ubuntu-22.04
     environment:
       name: abc
+      # without a unique URL for each "deployment", deployment status on the repository home page will be "inactive"
       url: http://localhost/abc/${{ matrix.build-platform }}/${{ matrix.build-config }}
     strategy:
       matrix:
