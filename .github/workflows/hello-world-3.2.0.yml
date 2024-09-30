@@ -60,7 +60,9 @@ jobs:
   test-matrix-job:
     name: Test Matrix Job 
     runs-on: ubuntu-22.04
-    environment: abc
+    environment:
+      name: abc
+      url: http://localhost/abc/${{ matrix.build-platform }}/${{ matrix.build-config }}
     strategy:
       matrix:
        build-platform: [x64, Win32]
