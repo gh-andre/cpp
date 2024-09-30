@@ -60,6 +60,7 @@ jobs:
   test-matrix-job:
     name: Test Matrix Job 
     runs-on: ubuntu-22.04
+    environment: abc
     strategy:
       matrix:
        build-platform: [x64, Win32]
@@ -69,7 +70,7 @@ jobs:
          release-only-var: This should appear only in a release build
 
     #
-    # Unlike Azure pipeline variables, evv mappings cannot refer
+    # Unlike Azure pipeline variables, env mappings cannot refer
     # to each other and this definition will generate errors.
     #
     #env:
@@ -82,6 +83,7 @@ jobs:
         echo 'RELEASE ONLY VAR: ${{ matrix.release-only-var }}'
         echo 'THREE_PART_VAR_FMT: ${{ format(env.THREE_PART_VAR_FMT, env.VERSION, matrix.build-platform) }}'
         echo 'THREE_PART_VAR: ${{ env.VERSION }}/${{ matrix.build-platform }}/${{ github.event.inputs.TEST_INPUT }}'
+        echo 'ABC VAR: ${{ vars.ABC_VAR }}'
 
   build-debian:
     name: Debian Build
