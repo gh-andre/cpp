@@ -87,6 +87,8 @@ jobs:
         echo 'THREE_PART_VAR_FMT: ${{ format(env.THREE_PART_VAR_FMT, env.VERSION, matrix.build-platform) }}'
         echo 'THREE_PART_VAR: ${{ env.VERSION }}/${{ matrix.build-platform }}/${{ github.event.inputs.TEST_INPUT }}'
         echo 'ABC VAR: ${{ vars.ABC_VAR }}'
+        echo 'ABC SECRET: ${{ secrets.ABC_SECRET }}'
+        echo 'REPO SECRET: ${{ secrets.REPO_SECRET }}'
 
   build-debian:
     name: Debian Build
