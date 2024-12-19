@@ -7,10 +7,16 @@
 #error BUILD_NUMBER must be defined when compiling this source file
 #endif
 
+void print_version(void)
+{
+    printf("\nv%s build %d\n", VERSION, BUILD_NUMBER);
+}
+
 int main(void)
 {
+    print_version();
+
     printf("Hello, world!\n");
-    printf("\nv%s build %d\n", VERSION, BUILD_NUMBER);
     
     FILE *csv = fopen("csv/20221211/abc.csv", "r");
     
