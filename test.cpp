@@ -34,7 +34,7 @@ OPT parse_options(int argc, char *argv[])
 
     for(int i = 1; i < argc; i++) {
        if(*argv[i] != '-') {
-           fprintf(stderr, "Unknown argument %s", argv[i]);
+           fprintf(stderr, "Unknown argument %s\n", argv[i]);
            return OPT::ERROR;
        }
         
