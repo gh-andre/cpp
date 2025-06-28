@@ -114,7 +114,12 @@ jobs:
 
     # run the app to make sure it was built
     - name: test ./cpp
-      run: ./cpp
+      run: |
+        ./cpp -v
+        ./cpp --version
+        ./cpp -h
+        ./cpp --help
+        ./cpp
       
     #
     # Use a local action to package build output as a tar/gzip artifact with

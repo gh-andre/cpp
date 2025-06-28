@@ -12,9 +12,46 @@ void print_version(void)
     printf("\nv%s build %d\n", VERSION, BUILD_NUMBER);
 }
 
-int main(void)
+void print_help(void)
 {
-    print_version();
+    printf("Usage: test [options]\n\n");
+
+    printf("  -h, --help      Show this help message\n");
+    printf("  -v, --version   Show version information\n");
+}
+
+void parse_options(int argc, char *argv[])
+{
+    if(argc > 1) {
+        for(int i = 1; i < argc; i++) {
+            if(argv[i] == '-') {
+                switch (argv[i][1]) {
+                    case 'h':
+                        print_help();
+                        break;
+                    case 'v':
+                        print_version();
+                        break;
+                    case '-':
+                        if(!strcmp(argv[i]+2, "help"))
+                            print_help();
+                        else if (!strcmp(argv[i]+2, "version"))
+                            print_version();
+                        else
+                            printf("Unknown long option %s\n", argv[i]);
+                        break;
+                    default:
+                        printf("Unknown options %s\n", argv[i]);
+                        break;
+                }
+            }
+        }
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    parse_options(argc, argv);
 
     printf("Hello, world!\n");
 
