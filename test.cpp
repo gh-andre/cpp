@@ -1,11 +1,18 @@
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 
 #define VERSION "3.1.0"
 
 #if !defined(BUILD_NUMBER)
 #error BUILD_NUMBER must be defined when compiling this source file
 #endif
+
+enum class OPT {
+    NONE,
+    HANDLED,
+    ERROR
+};
 
 void print_version(void)
 {
@@ -20,40 +27,51 @@ void print_help(void)
     printf("  -v, --version   Show version information\n");
 }
 
-void parse_options(int argc, char *argv[])
+OPT parse_options(int argc, char *argv[])
 {
-    if(argc > 1) {
-        for(int i = 1; i < argc; i++) {
-            if(argv[i] == '-') {
-                switch (argv[i][1]) {
-                    case 'h':
-                        print_help();
-                        break;
-                    case 'v':
-                        print_version();
-                        break;
-                    case '-':
-                        if(!strcmp(argv[i]+2, "help"))
-                            print_help();
-                        else if (!strcmp(argv[i]+2, "version"))
-                            print_version();
-                        else
-                            printf("Unknown long option %s\n", argv[i]);
-                        break;
-                    default:
-                        printf("Unknown options %s\n", argv[i]);
-                        break;
-                }
-            }
-        }
+    if(argc == 1)
+      return OPT::NONE;
+
+    for(int i = 1; i < argc; i++) {
+       if(*argv[i] != '-') {
+           fprintf(stderr, "Unknown argument %s", argv[i]);
+           return OPT::ERROR;
+       }
+        
+       switch (argv[i][1]) {
+           case 'h':
+               print_help();
+               break;
+           case 'v':
+               print_version();
+               break;
+           case '-':
+               if(!strcmp(argv[i]+2, "help"))
+                   print_help();
+               else if (!strcmp(argv[i]+2, "version"))
+                   print_version();
+               else {
+                   fprintf(stderr, "Unknown long option %s\n", argv[i]);
+                   return OPT::ERROR;
+               }
+               break;
+           default:
+               fprintf(stderr, "Unknown option %s\n", argv[i]);
+               return OPT::ERROR;
+       }
     }
+
+    return OPT::HANDLED;
 }
 
 int main(int argc, char *argv[])
 {
-    parse_options(argc, argv);
-
-    printf("Hello, world!\n");
+    switch(parse_options(argc, argv)) {
+        case OPT::HANDLED:
+            return EXIT_SUCCESS;
+        case OPT::ERROR:
+            return EXIT_FAILURE;
+    }
 
     FILE *csv = fopen("csv/20221211/abc.csv", "r");
 
