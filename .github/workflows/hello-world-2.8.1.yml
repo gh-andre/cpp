@@ -59,7 +59,7 @@ env:
 jobs:
   test-matrix-job:
     name: Test Matrix Job 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
        build-platform: [x64, Win32]
@@ -85,7 +85,7 @@ jobs:
 
   build-debian:
     name: Debian Build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     
     steps:
     # checkout the latest source
@@ -121,7 +121,7 @@ jobs:
 
   build-windows:
     name: Windows Build 
-    runs-on: windows-2019
+    runs-on: windows-2022
     strategy:
       matrix:
        build-platform: [x64, Win32]
