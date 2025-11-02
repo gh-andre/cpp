@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 ifndef BUILD_NUMBER
 BUILD_NUMBER := 0
 endif
