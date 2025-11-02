@@ -93,6 +93,7 @@ int main(int argc, char *argv[])
         fclose(csv);
     
         return EXIT_SUCCESS;
+    }
     catch (const std::exception& error) {
         fprintf(stderr, "%s\n", error.what());
     }
