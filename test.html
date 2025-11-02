@@ -5,16 +5,6 @@
     function addHTML()
     {
       document.getElementById("body_text").appendChild(document.createTextNode("ABC"));
-
-      if(!localStorage.getItem("abc")) {
-        localStorage.setItem("abc", "abc-value");
-        console.log("ADDED abc (local storage)");
-      }
-
-      if(!sessionStorage.getItem("xyz")) {
-        sessionStorage.setItem("xyz", "xyz-value");
-        console.log("ADDED xyz (session-storage)");
-      }
     }
   </script>
   </head>
