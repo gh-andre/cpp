@@ -59,7 +59,7 @@ env:
 jobs:
   test-matrix-job:
     name: Test Matrix Job 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     environment:
       name: abc
       # without a unique URL for each "deployment", deployment status on the repository home page will be "inactive"
@@ -92,7 +92,7 @@ jobs:
 
   build-debian:
     name: Debian Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     
     steps:
     # checkout the latest source
