@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <stdexcept>
+#include <format>
 
 #define VERSION "3.2.0"
 
@@ -8,10 +10,9 @@
 #error BUILD_NUMBER must be defined when compiling this source file
 #endif
 
-enum class OPT {
-    NONE,
-    HANDLED,
-    ERROR
+struct options_t {
+    bool print_help = false;
+    bool print_version = false;
 };
 
 void print_version(void)
@@ -27,72 +28,74 @@ void print_help(void)
     printf("  -v, --version   Show version information\n");
 }
 
-OPT parse_options(int argc, char *argv[])
+options_t parse_options(int argc, char *argv[])
 {
-    if(argc == 1)
-      return OPT::NONE;
-
+    options_t options;
+    
     for(int i = 1; i < argc; i++) {
-       if(*argv[i] != '-') {
-           fprintf(stderr, "Unknown argument %s\n", argv[i]);
-           return OPT::ERROR;
-       }
+       if(*argv[i] != '-')
+           throw std::runtime_error(std::format("Unknown argument {:s}", argv[i]));
         
        switch (argv[i][1]) {
            case 'h':
-               print_help();
+               options.print_help = true;
                break;
            case 'v':
-               print_version();
+               options.print_version = true;
                break;
            case '-':
                if(!strcmp(argv[i]+2, "help"))
-                   print_help();
+                   options.print_help = true;
                else if (!strcmp(argv[i]+2, "version"))
-                   print_version();
-               else {
-                   fprintf(stderr, "Unknown long option %s\n", argv[i]);
-                   return OPT::ERROR;
-               }
+                   options.print_version = true;
+               else
+                   throw std::runtime_error(std::format("Unknown long option {:s}", argv[i]));
                break;
            default:
-               fprintf(stderr, "Unknown option %s\n", argv[i]);
-               return OPT::ERROR;
+               throw std::runtime_error(std::format("Unknown option {:s}", argv[i]));
        }
     }
 
-    return OPT::HANDLED;
+    return options;
 }
 
 int main(int argc, char *argv[])
 {
-    switch(parse_options(argc, argv)) {
-        case OPT::HANDLED:
+    try {
+        options_t options = parse_options(argc, argv);
+
+        if(options.print_version) {
+            print_version();
             return EXIT_SUCCESS;
-        case OPT::ERROR:
-            return EXIT_FAILURE;
-    }
+        }
+    
+        if(options.print_help) {
+            print_help();
+            return EXIT_SUCCESS;
+        }
 
-    FILE *csv = fopen("csv/20221211/abc.csv", "r");
-
-    if(!csv) {
-        fprintf(stderr, "Cannot open CSV\n");
-        return EXIT_FAILURE;
-    }
-
-    char buffer[256];
-
-    while(fgets(buffer, sizeof(buffer), csv)) {
-        printf("%s", buffer);
-    }
-
-    if(ferror(csv)) {
-        fprintf(stderr, "Error reading CSV\n");
+        FILE *csv = fopen("csv/20221211/abc.csv", "r");
+    
+        if(!csv)
+            throw std::runtime_error("Cannot open CSV");
+    
+        char buffer[256];
+    
+        while(fgets(buffer, sizeof(buffer), csv)) {
+            printf("%s", buffer);
+        }
+    
+        if(ferror(csv)) {
+            fclose(csv);
+            throw std::runtime_error("Error reading CSV");
+        }
+    
         fclose(csv);
-        return EXIT_FAILURE;
+    
+        return EXIT_SUCCESS;
+    catch (const std::exception& error) {
+        fprintf(stderr, "%s\n", error.what());
     }
 
-    fclose(csv);
-
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
 }
