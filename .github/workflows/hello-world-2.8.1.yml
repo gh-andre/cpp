@@ -90,7 +90,7 @@ jobs:
     steps:
     # checkout the latest source
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     # use a local action that builds a Debian container and runs `make` in it
     - name: Make ./cpp
@@ -114,7 +114,7 @@ jobs:
     
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
-      uses: actions/upload-artifact@v2.2.1
+      uses: actions/upload-artifact@v4
       with:
         name: hello-world-deb
         path: hello-world-deb-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.tar.gz
@@ -133,7 +133,7 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     # batch file must be prefixed with `call` for this step to work
     - name: build cpp
@@ -159,7 +159,7 @@ jobs:
     
     # upload the artifact under the `hello-world` name
     - name: Upload ./cpp artifact
-      uses: actions/upload-artifact@v2.2.1
+      uses: actions/upload-artifact@v4
       with:
         name: hello-world-win-${{ matrix.build-platform }}
         path: hello-world-win-${{ matrix.build-platform }}-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}.zip
@@ -183,14 +183,14 @@ jobs:
 
     # download the artifact that was built in the `build` job in this workflow
     - name: Download Debian artifact
-      uses: actions/download-artifact@v2.0.7
+      uses: actions/download-artifact@v4
       with:
         name: hello-world-deb
         path: .
 
     # upload the build artifact as a draft release asset
     - name: Upload a Debian Release Asset
-      uses: actions/upload-release-asset@v1.0.2
+      uses: actions/upload-release-asset@v4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -202,13 +202,13 @@ jobs:
 
       # same steps would be used for the x86 platform (not done in this script)
     - name: Download Windows x64 artifact
-      uses: actions/download-artifact@v2.0.7
+      uses: actions/download-artifact@v4
       with:
         name: hello-world-win-x64
         path: .
 
     - name: Upload a Windows Release Asset
-      uses: actions/upload-release-asset@v1.0.2
+      uses: actions/upload-release-asset@v4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
