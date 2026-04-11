@@ -10,6 +10,7 @@
 #error BUILD_NUMBER must be defined when compiling this source file
 #endif
 
+// a structure carrying command line option values
 struct options_t {
     bool print_help = false;
     bool print_version = false;
